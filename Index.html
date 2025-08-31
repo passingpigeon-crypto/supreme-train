@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캐릭터 프로필 Q&A</title>
+    <style>
+        /* 기본 스타일 및 폰트 설정 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        /* 전체 콘텐츠를 감싸는 컨테이너 */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+
+        /* 페이지 제목 */
+        h1 {
+            text-align: center;
+            color: #212529;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 40px;
+        }
+
+        /* 각 Q&A 블록 */
+        .qa-block {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 30px;
+        }
+        .qa-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        /* 질문(Q) 스타일 */
+        .question {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .question::before {
+            content: 'Q.';
+            margin-right: 10px;
+        }
+
+        /* 답변(A) 스타일 */
+        .answer {
+            font-size: 1em;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .answer::before {
+            content: 'A.';
+            position: absolute;
+            left: 0;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .answer ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .answer ul li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 3px solid #007bff;
+            border-radius: 4px;
+        }
+
+        /* 토글 가능한 상세 정보 섹션 (details, summary) */
+        details {
+            margin-top: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            transition: background-color 0.2s ease-in-out;
+        }
+        details[open] {
+            background-color: #e9ecef;
+        }
+
+        summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #495057;
+            list-style: none; /* 기본 화살표 제거 */
+        }
+        summary::-webkit-details-marker {
+            display: none; /* 기본 화살표 제거 (Chrome, Safari) */
+        }
+        summary::before {
+            content: '▶';
+            margin-right: 10px;
+            font-size: 0.8em;
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+        }
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .details-content {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ced4da;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>캐릭터에 대해 알고 싶어!</h1>
+        <p class="subtitle">이곳에 캐릭터의 이름이나 소개를 적어주세요.</p>
+
+        <!--
+            아래부터 Q&A 내용입니다.
+            <div class="qa-block"> ... </div> 이 부분을 복사해서 새로운 질문을 추가할 수 있습니다.
+        -->
+
+        <!-- 예시 1: 단일 답변 + 단일 토글 -->
+        <div class="qa-block">
+            <h2 class="question">자캐의 가족관계는 어떻게 되나요?</h2>
+            <div class="answer">
+                <p>외동으로, 현재는 부모님과 떨어져 혼자 살고 있습니다.</p>
+            </div>
+            <details>
+                <summary>자세한 이야기</summary>
+                <div class="details-content">
+                    <p>부모님은 작은 시골 마을에서 농장을 운영하고 계십니다. 어릴 적부터 독립심이 강해 도시로 상경했으며, 지금도 한 달에 한 번은 부모님을 찾아뵙고 있습니다.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- 예시 2: 단일 답변 + 여러 토글 -->
+        <div class="qa-block">
+            <h2 class="question">자캐의 취미는 무엇인가요?</h2>
+            <div class="answer">
+                <p>주된 취미는 오래된 흑백 영화 감상입니다.</p>
+            </div>
+            <details>
+                <summary>어떤 영화를 좋아하나요?</summary>
+                <div class="details-content">
+                    <p>주로 1940년대에서 50년대 사이에 제작된 필름 느와르 장르를 선호합니다. 특유의 어두운 분위기와 예측 불가능한 스토리를 즐깁니다.</p>
+                </div>
+            </details>
+            <details>
+                <summary>취미가 된 계기</summary>
+                <div class="details-content">
+                    <p>어릴 적 할아버지 댁에서 우연히 발견한 낡은 필름 영사기와 영화들을 접하게 된 것이 계기가 되었습니다. 그 이후로 고전 영화의 매력에 푹 빠지게 되었습니다.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- 예시 3: 여러 답변 + 각 답변별 토글 -->
+        <div class="qa-block">
+            <h2 class="question">자캐의 특기는 무엇인가요?</h2>
+            <div class="answer">
+                <ul>
+                    <li>
+                        <strong>요리:</strong> 특히 이탈리안 요리에 능숙합니다.
+                        <details>
+                            <summary>요리를 잘하게 된 이유</summary>
+                            <div class="details-content">
+                                <p>자취를 시작하면서 생활비를 아끼기 위해 직접 요리하기 시작했습니다. 요리책을 보고 따라 하던 것이 재미를 붙여 지금은 수준급의 실력을 갖게 되었습니다.</p>
+                            </div>
+                        </details>
+                    </li>
+                    <li>
+                        <strong>외국어:</strong> 영어와 프랑스어를 유창하게 구사합니다.
+                        <details>
+                            <summary>외국어를 배우게 된 계기</summary>
+                            <div class="details-content">
+                                <p>앞서 말한 취미인 고전 영화 감상을 위해 원어로 된 영화를 자막 없이 보고 싶다는 생각에 공부를 시작했습니다. 지금은 업무에도 적극적으로 활용하고 있습니다.</p>
+                            </div>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 여기에 질문과 답변을 추가하세요 -->
+
+    </div>
+
+</body>
+</html>
