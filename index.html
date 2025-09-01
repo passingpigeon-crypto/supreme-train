@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -66,8 +67,6 @@
             font-size: 0.9em; border-radius: 4px;
         }
         .category-btn:hover, .category-btn.active { background-color: var(--main-color); color: var(--bg-color); box-shadow: 0 0 15px var(--glow-color); }
-
-        /* <!-- BGM 버튼 스타일 추가 --> */
         .bgm-control {
             position: fixed;
             top: 25px;
@@ -90,7 +89,6 @@
             color: var(--bg-color);
             box-shadow: 0 0 15px var(--glow-color);
         }
-        /* <!-- BGM 버튼 스타일 끝 --> */
 
         .content-section { display: none; animation: fadeIn 0.5s ease-out; }
         .content-section.active { display: block; }
@@ -121,7 +119,6 @@
         @media (max-width: 600px) {
             body { padding: 10px; } .container { padding: 15px; } .glitch-title { font-size: 1.8em; }
             .category-btn { font-size: 0.8em; padding: 6px 10px;}
-            /* <!-- BGM 버튼 위치 조정 (모바일) --> */
             .bgm-control { top: 15px; right: 15px; }
             #bgm-toggle-btn { font-size: 0.8em; padding: 6px 10px; }
         }
@@ -129,13 +126,11 @@
 </head>
 <body>
 
-    <!-- BGM 오디오 파일 추가 -->
-    <audio id="bgm-audio" loop>
+    <audio id="bgm-audio" loop preload="none">
         <source src="https://cdn.pixabay.com/download/audio/2024/05/17/audio_f574a72d7f.mp3?filename=lazy-day-stylish-futuristic-chill-239287.mp3" type="audio/mpeg">
         브라우저가 오디오를 지원하지 않습니다.
     </audio>
 
-    <!-- BGM 제어 버튼 추가 -->
     <div class="bgm-control">
         <button id="bgm-toggle-btn">SOUND ON</button>
     </div>
@@ -158,7 +153,7 @@
         </nav>
 
         <main>
-            <!-- 👤 기본 프로필 및 신체 정보 -->
+            <!-- (생략) HTML 내용은 이전과 동일합니다 -->
             <section id="profile" class="content-section active">
                 <div class="qa-block">
                     <h2 class="question">이름은 무슨 뜻인가요?</h2>
@@ -217,301 +212,33 @@
                 </div>
             </section>
 
-            <!-- 👨‍👩‍👧‍👦 가족 및 대인 관계 -->
             <section id="relations" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">가족 관계는 어떤가요?</h2>
-                    <div class="answer">
-                        <p>결코 좋다고 할 수 없습니다.</p>
-                    </div>
-                    <details>
-                        <summary>이진혁 (사망)</summary>
-                        <div class="details-content"><p>주온에게 아버지, 이진혁은 총사령관같은 존재였습니다. 그가 주온을 연방의원으로 만든 것은 그녀의 재능을 봐서가 아니라, 아들을 보조할 두 번째 말이 필요했기 때문입니다. 그가 주온에게 보인 드문 칭찬마저도 "시우의 반만큼은 하는구나"와 같은 형태였습니다.</p>
-<p>주온의 낮은 자존감, 인정 욕구, 자신의 욕망을 죄악시하는 태도는 모두 아버지로부터 비롯되었습니다. 아버지가 내전에서 죽은 이후에도 주온은 여전히 그에게서 벗어나지 못하고 있습니다.</p></div>
-                    </details>
-                    <details>
-                        <summary>윤서희</summary>
-                        <div class="details-content"><p>이진혁의 아내로서, 그녀는 자식들을 사회적 기준에 맞는 완벽한 자식으로 보이는 것을 선택했습니다. 주온이 감정적인 지지를 원하며 그녀를 찾았을 때, 돌아오는 대답은 항상 "네 아버지 말씀에 틀린 것 없단다", "시끄럽게 만들지 말거라"와 같은 외면이었습니다.</p>
-<p>남편의 죽음 이후, 그녀는 완전히 아들에게 의존하게 되었고 과거의 영광을 그리워하며 조용히 살아가고 있습니다. 가장 가까워야 할 존재로부터 받은 외면은 '결국 세상에 나를 이해해 줄 사람은 없다'는 고립감을 주온에게 심어주었습니다.</p></div>
-                    </details>
-                    <details>
-                        <summary>이시우</summary>
-                        <div class="details-content"><p>시우는 언제나 완벽한 오빠였습니다. 주온이 아버지에게 혼나고 있을 때 대신 나서서 변호해주었고, 그녀의 사소한 성공을 누구보다 기뻐해 주었습니다.</p>
-<p>주온이에게 있어서 오빠는 열등감의 대상이자 기댈 수 있는 유일한 존재였으나, 한 가지 간과한 것. 그건 바로 이시온이 그녀를 독립적인 성인으로 성장하는 것을 막았고, 어려운 문제에 부딪혔을 때 해결책을 가르쳐주기보다 직접 해결해주며 "온아, 이건 오빠가 없으면 안 되겠지?"라고 말하는 식으로 의존할 대상을 찾게 만들었다는 겁니다.</p>
-<p>현재: 가족이 몰락한 지금, 시우는 주온이 기댈 수 있는 유일한 존재가 되었습니다. 그는 주기적으로 주온에게 생활비를 보내고 연락을 합니다. 그의 연락은 언제나 "거긴 위험하지 않니?", "내가 마련해준 안전한 곳으로 오는 게 어떻겠니?"와 같은 제안으로 끝납니다.</p></div>
-                    </details>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">어떤 유형의 사람을 선호하거나 기피하나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>좋아하는 유형:</strong> 자신에게 아무것도 기대하지 않고, 묵묵히 곁에 있어 주는 사람. 순수하고 소박한 친절을 베푸는 위압적이지 않고 조용한 사람에게서 안도감을 느낍니다.
-                            </li>
-                            <li>
-                                <strong>싫어하는 유형:</strong> 교활하고 야심만만하며, 타인을 수단으로 여기는 사람을 혐오하고 두려워합니다. 또한, 권위적이고 통제하려는 유형을 본능적으로 피합니다.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">결혼에 대한 가치관은 어떤가요?</h2>
-                    <div class="answer">
-                        <p>누군가와 깊은 관계를 맺고 미래를 약속하는 것 자체를 상상조차 할 수 없습니다.</p>
-                    </div>
-                    <details>
-                        <summary>결혼 가능성</summary>
-                        <div class="details-content">
-                            <p>현재로서는 불가능에 가깝습니다. 그녀에게 결혼은 자신 같은 겁쟁이에게는 허락되지 않는, 머나먼 세상의 이야기일 뿐입니다.</p>
-                        </div>
-                    </details>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- 🤸 취미 및 특기 -->
             <section id="skills" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">취미나 특기가 있나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>취미:</strong> 창가에 앉아 하염없이 밖을 내다보는 것. 지나가는 사람들의 평범한 일상을 지켜보며 시간을 흘려보냅니다.
-                            </li>
-                            <li>
-                                <strong>(과거의) 특기:</strong> 연설과 토론. 타인의 의도를 파악하고 논리의 허점을 파고드는 데 능숙했지만, 이제는 그 능력으로 타인의 작은 호의 속에서 다른 꿍꿍이를 찾아내고 무심한 시선 속에서 경멸을 읽어냅니다. 과거 자신의 무기였던 특기가 이제는 세상과 자신을 단절시키는 높은 벽이 되어버린거죠.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">운동이나 스포츠를 즐겨 하나요?</h2>
-                    <div class="answer">
-                        <p>전혀 하지 않습니다. 특별히 잘하거나 꾸준히 하는 운동은 없습니다.</p>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">음악이나 예술적 재능이 있나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>악기:</strong> 어릴 적 피아노를 배웠지만, 아버지의 반대로 그만둔 이후로는 악기를 만진 적이 없습니다. 기본적인 연주는 가능하지만, 즐기지는 않습니다.
-                            </li>
-                            <li>
-                                <strong>노래:</strong> 맑고 아름다운 음색을 가져 타고난 재능이 있습니다.
-                                <details>
-                                    <summary>노래를 부르지 않는 이유</summary>
-                                    <div class="details-content"><p>유일한 자기표현의 수단이자 즐거움이었지만, 아버지에 의해 꿈이 꺾인 이후로는 단 한 번도 남들 앞에서 노래를 불러본 적이 없습니다. 가장 잘 부르는 노래는 어린 시절 칼란드에서 유행했던 발라드입니다.</p></div>
-                                </details>
-                            </li>
-                            <li>
-                                <strong>춤:</strong> 왈츠 같은 기본적인 파트너 댄스는 배웠습니다.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">그 외 다른 재능은 어떤가요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li><strong>운전:</strong> 과거에는 개인용 스피더를 능숙하게 몰았지만, 지금은 운전할 일이 없습니다.</li>
-                            <li><strong>요리:</strong> 못합니다. 생존을 위해 즉석 영양 수프를 데우는 정도의 최소한의 조리법만 알고 있습니다.</li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- 🍽️ 식생활 및 음식 취향 -->
             <section id="food" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">좋아하거나 싫어하는 음식이 있나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>좋아하는 음식:</strong> 작은 조각 케이크나 달콤한 푸딩.
-                            </li>
-                            <li>
-                                <strong>싫어하는 음식:</strong> 딱히 불호는 없습니다.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">주로 마시는 음료나 좋아하는 간식이 있나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li><strong>음료:</strong> 따뜻한 허브티, 그중에서도 카모마일 티를 자주 마십니다.</li>
-                            <li><strong>간식:</strong> 부드러운 식감의 빵이나 쿠키를 좋아합니다.</li>
-                            <li><strong>계절별 간식:</strong> 여름에는 과일맛 셔벗, 겨울에는 따뜻하게 데운 우유를 선호합니다.</li>
-                            <li><strong>아이스크림 맛:</strong> 딸기맛.</li>
-                            <li><strong>붕어빵 취향:</strong> 팥붕. 선택하는 데 에너지를 들이고 싶지 않습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">식사 습관은 어떤가요?</h2>
-                    <div class="answer">
-                        <p>아침과 점심은 대부분 거르며, 저녁에 허기가 느껴질 때만 간단하게 챙겨 먹는 불규칙한 식습관을 규칙적으로 하고 있습니다.</p>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- ☀️ 일상 및 생활 습관 -->
             <section id="life" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">사소한 습관이나 버릇이 있나요?</h2>
-                    <div class="answer">
-                        <p>불안하거나 깊은 생각에 잠길 때, 무의식적으로 자신의 목을 가볍게 매만지는 습관이 있습니다.</p>
-                        <details>
-                            <summary>나쁜 버릇</summary>
-                            <div class="details-content"><p>대화 중에 "저 같은 겁쟁이가..." 와 같은 자기비하적인 말을 서슴없이 내뱉는 것.</p></div>
-                        </details>
-                        <details>
-                            <summary>버릇을 고칠 수 있을까?</summary>
-                            <div class="details-content"><p>스스로는 고칠 수 없습니다.</p></div>
-                        </details>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">수면 습관은 어떤가요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li><strong>잠버릇:</strong> 몸을 새우처럼 둥글게 말고 잡니다.</li>
-                            <li><strong>잠옷:</strong> 얇은 실크 소재의 슬립 드레스를 입습니다.</li>
-                            <li><strong>자는 곳:</strong> 침대에서 잡니다.</li>
-                            <li><strong>잠들기 전:</strong> 창가에 앉아 도시를 바라보다가, 지쳐 쓰러지듯 침대에 눕습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">아침 일과는 어떻게 되나요?</h2>
-                    <div class="answer">
-                        <p>일어나자마자 한동안 멍하니 누워 있다가 천천히 몸을 일으킵니다. 그 후 물 한 잔을 마시고, 창가 의자에 앉아 밖을 바라보는 것이 아침 루틴의 전부입니다.</p>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">주로 어떻게 휴식을 취하거나 시간을 보내나요?</h2>
-                    <div class="answer">
-                        <p>매일이 휴일과 같으며, 매일 같은 일상을 반복합니다. 진정한 의미의 휴식을 취하지 못하며, 그저 창밖을 보거나 과거의 기억에 잠겨 시간을 흘려보냅니다.</p>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">자캐의 방은 어떤 상태인가요?</h2>
-                    <div class="answer">
-                        <p>침대, 작은 옷장, 창가의 낡은 의자. 꼭 필요한 최소한의 가구 외에는 아무것도 없습니다.</p>
-                        <details>
-                            <summary>방 정리 상태</summary>
-                            <div class="details-content"><p>물건이 거의 없기도 하지만 과거의 습관 때문에 흐트러진 것을 참지 못합니다.</p></div>
-                        </details>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- ❤️ 개인 선호 및 취향 -->
             <section id="tastes" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">특별히 좋아하는 것들이 있나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li><strong>식물:</strong> 안개꽃.</li>
-                            <li><strong>동물:</strong> 길고양이.</li>
-                            <li><strong>색상:</strong> 회색. 어떤 색과도 섞이지 않으면서 눈에 띄지도 않는 무채색을 선호합니다. 최근에는 초록색에 눈독 들이고 있습니다.</li>
-                            <li><strong>음악:</strong> 가사 없는 피아노 연주곡.</li>
-                            <li><strong>계절:</strong> 가을.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">평소 옷차림이나 패션 스타일은 어떤가요?</h2>
-                    <div class="answer">
-                        <p>패션에 관심이 없지만, 타고난 외모와 분위기 덕분에 무엇을 걸쳐도 태가 납니다. 주로 몸의 윤곽이 드러나는 얇은 소재의 롱 드레스를 입습니다.</p>
-                    </div>
-                    <details>
-                        <summary>가장 잘 어울리는 옷</summary>
-                        <div class="details-content"><p>그녀의 우아한 골격과 위태로운 분위기 때문에 하늘하늘한 소재의 옷이 잘 어울립니다. 과거에 입었던 제복 또한 다른 의미로 잘 어울렸습니다.</p></div>
-                    </details>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">실내와 야외 중 어디를 더 선호하나요?</h2>
-                    <div class="answer">
-                        <p>실내를 선호합니다.</p>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- 🍻 음주 및 흡연 -->
             <section id="vices" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">술이나 담배를 하나요?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>음주/흡연 여부:</strong> 둘 다 하지 않습니다. 특히 술은 감정의 통제를 잃게 만들 수 있다는 두려움 때문에 가능하다면 피합니다.
-                            </li>
-                            <li>
-                                <strong>주량:</strong> 강합니다.
-                            </li>
-                            <li>
-                                <strong>술버릇(가상):</strong> 만약 마시게 된다면, 억눌렀던 감정이 터져 나와 눈물을 흘리며 훌쩍거릴 것이다.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
-
-            <!-- 🤔 가상 상황 질문 -->
             <section id="misc" class="content-section">
-                <div class="qa-block">
-                    <h2 class="question">만약 감기에 걸린다면?</h2>
-                    <div class="answer">
-                        <p>아프다는 사실조차 제대로 인지하지 못하고, 그저 평소보다 더 무기력하게 침대에 누워 시간을 보낼 것입니다.</p>
-                        <details>
-                            <summary>자신을 돌보는 것에 대하여</summary>
-                            <div class="details-content"><p>자신을 돌봐야 한다는 생각 자체를 하지 못합니다.</p></div>
-                        </details>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">만약 식물이나 동물을 키운다면?</h2>
-                    <div class="answer">
-                        <ul>
-                            <li>
-                                <strong>식물:</strong> 처음에는 자신이 생명을 책임질 자격이 없다며 망설이겠지만, 일단 키우기 시작하면 과할 정도로 정성을 쏟을 것입니다. 말 못 하는 식물에게 자신의 처지를 투영하며 애정을 쏟아붓습니다.
-                            </li>
-                            <li>
-                                <strong>동물:</strong> 자신 때문에 동물이 불행해질 것이라며 두려워할 것입니다. 하지만 만약 곁에 동물이 있다면, 유일하게 마음을 여는 대상이 되어 자신의 모든 것을 내어주려 할 것입니다.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">자주 꾸는 꿈이나 악몽에 대한 것이 있나요?</h2>
-                    <div class="answer">
-                        <p>내전으로 불타는 고향, 차갑게 식어가는 아버지, 혹은 수많은 사람들에게 손가락질을 당하는 꿈을 반복해서 꿉니다.</p>
-                    </div>
-                    <details>
-                        <summary>악몽을 꾼 후에는</summary>
-                        <div class="details-content"><p>소리 없이 식은땀을 흘리며 잠에서 깹니다. 깨어난 후에도 한동안 공포에 질려 몸을 움직이지 못하고, 그날 밤은 다시 잠들지 못합니다.</p></div>
-                    </details>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">벌레를 마주치면 어떻게 반응하나요?</h2>
-                    <div class="answer">
-                        <p>벌레를 무서워하지만 비명을 지르지도 못하고, 그저 그 자리에 얼어붙거나 조용히 자리를 피할 뿐입니다. 만약 바퀴벌레를 마주친다면 그 공간을 즉시 포기하고 다시는 들어가지 못할 수도 있습니다.</p>
-                    </div>
-                </div>
-                <div class="qa-block">
-                    <h2 class="question">결혼식장에 가게 된다면?</h2>
-                    <div class="answer">
-                        <p>참석을 피하려 모든 노력을 다할 것입니다. 만약 어쩔 수 없이 가게 된다면, 가장 눈에 띄지 않는 구석에서 존재감을 지우고 있다가 식이 끝나자마자 조용히 사라질 것입니다.</p>
-                    </div>
-                </div>
+                <!-- 생략 -->
             </section>
         </main>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 기존 카테고리 네비게이션 스크립트
+            // 카테고리 네비게이션 스크립트 (기존과 동일)
             const categoryButtons = document.querySelectorAll('.category-btn');
             const contentSections = document.querySelectorAll('.content-section');
             categoryButtons.forEach(button => {
@@ -526,24 +253,39 @@
                 });
             });
 
-            // <!-- BGM 제어 스크립트 추가 -->
+            // --- BGM 제어 스크립트 수정 ---
             const bgmAudio = document.getElementById('bgm-audio');
             const bgmBtn = document.getElementById('bgm-toggle-btn');
 
+            function unlockAudio() {
+                bgmAudio.load();
+                document.body.removeEventListener('click', unlockAudio);
+            }
+            document.body.addEventListener('click', unlockAudio);
+
+
             bgmBtn.addEventListener('click', () => {
                 if (bgmAudio.paused) {
-                    bgmAudio.play();
-                    bgmBtn.textContent = 'SOUND OFF';
-                    bgmBtn.classList.add('active');
+                    const playPromise = bgmAudio.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            bgmBtn.textContent = 'SOUND OFF';
+                            bgmBtn.classList.add('active');
+                        }).catch(error => {
+                            console.error("오디오 재생에 실패했습니다:", error);
+                        });
+                    }
                 } else {
                     bgmAudio.pause();
                     bgmBtn.textContent = 'SOUND ON';
                     bgmBtn.classList.remove('active');
                 }
             });
-            // <!-- BGM 스크립트 끝 -->
+            // --- BGM 스크립트 수정 끝 ---
         });
     </script>
 
 </body>
 </html>
+```
