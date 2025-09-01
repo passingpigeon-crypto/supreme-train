@@ -3,215 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>캐릭터 프로필 Q&A</title>
+    <title>DATA LOG :: CHARACTER Q&A</title>
     <style>
-        /* 기본 스타일 및 폰트 설정 */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.7;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+        :root {
+            --bg-color: #0D0D0F; --main-color: #00FF7F; --glow-color: rgba(0, 255, 127, 0.5);
+            --text-color: #E0E0E0; --border-color: rgba(0, 255, 127, 0.2);
+            --gradient-start: #4A00E0; --gradient-mid: #8E2DE2; --gradient-end: #FFC800;
         }
-
-        /* 전체 콘텐츠를 감싸는 컨테이너 */
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 40px;
+        @keyframes noise { 0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-1px, -1px); } 20% { transform: translate(1px, -1px); } 30% { transform: translate(-1px, 1px); } 40% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 60% { transform: translate(1px, -1px); } 70% { transform: translate(-1px, 1px); } 80% { transform: translate(1px, 1px); } 90% { transform: translate(-1px, -1px); } }
+        @keyframes glitch-occasional {
+            0%, 95%, 100% { transform: none; text-shadow: 0 0 5px var(--glow-color); }
+            95.1% { transform: translate(-3px, -1px) skewX(-5deg); text-shadow: -2px 0 #FF00FF, 2px 0 #00FFFF, 0 0 10px var(--glow-color); }
+            95.2% { transform: translate(2px, 1px) skewX(3deg); } 95.3% { transform: none; }
         }
-
-        /* 페이지 제목 */
-        h1 {
-            text-align: center;
-            color: #212529;
-            font-weight: 700;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 20px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #6c757d;
-            margin-bottom: 40px;
-        }
-
-        /* 각 Q&A 블록 */
-        .qa-block {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #e9ecef;
-            padding-bottom: 30px;
-        }
-        .qa-block:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        /* 질문(Q) 스타일 */
-        .question {
-            font-size: 1.25em;
-            font-weight: 700;
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-        .question::before {
-            content: 'Q.';
-            margin-right: 10px;
-        }
-
-        /* 답변(A) 스타일 */
-        .answer {
-            font-size: 1em;
-            margin-bottom: 15px;
-            padding-left: 30px;
-            position: relative;
-        }
-        .answer::before {
-            content: 'A.';
-            position: absolute;
-            left: 0;
-            font-weight: 500;
-            color: #495057;
-        }
-
-        .answer ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-top: 10px;
-        }
-
-        .answer ul li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-left: 3px solid #007bff;
-            border-radius: 4px;
-        }
-
-        /* 토글 가능한 상세 정보 섹션 (details, summary) */
-        details {
-            margin-top: 15px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            transition: background-color 0.2s ease-in-out;
-        }
-        details[open] {
-            background-color: #e9ecef;
-        }
-
-        summary {
-            font-weight: 500;
-            cursor: pointer;
-            color: #495057;
-            list-style: none; /* 기본 화살표 제거 */
-        }
-        summary::-webkit-details-marker {
-            display: none; /* 기본 화살표 제거 (Chrome, Safari) */
-        }
-        summary::before {
-            content: '▶';
-            margin-right: 10px;
-            font-size: 0.8em;
-            display: inline-block;
-            transition: transform 0.2s ease-in-out;
-        }
-        details[open] summary::before {
-            transform: rotate(90deg);
-        }
-
-        .details-content {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #ced4da;
-            color: #343a40;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 20px; min-height: 100vh; overflow-x: hidden; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.03; z-index: -1; pointer-events: none; animation: noise 0.2s linear infinite; }
+        .container { max-width: 800px; margin: 0 auto; border: 1px solid var(--border-color); background: rgba(13, 13, 15, 0.8); backdrop-filter: blur(5px); padding: 20px; border-radius: 8px; box-shadow: 0 0 20px var(--glow-color); }
+        .header { text-align: center; margin-bottom: 30px; position: relative; }
+        .glitch-title { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: var(--main-color); text-shadow: 0 0 5px var(--glow-color); position: relative; text-transform: uppercase; animation: glitch-occasional 7s linear infinite; }
+        .subtitle { color: var(--text-color); font-weight: 300; letter-spacing: 2px; margin-top: 10px; }
+        .category-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .category-btn { font-family: 'Orbitron', sans-serif; background: transparent; border: 1px solid var(--border-color); color: var(--main-color); padding: 8px 15px; cursor: pointer; transition: all 0.3s ease; font-size: 0.9em; border-radius: 4px; }
+        .category-btn:hover, .category-btn.active { background-color: var(--main-color); color: var(--bg-color); box-shadow: 0 0 15px var(--glow-color); }
+        .content-section { display: none; animation: fadeIn 0.5s ease-out; }
+        .content-section.active { display: block; }
+        .qa-block { margin-bottom: 20px; border: 1px solid var(--border-color); padding: 15px; position: relative; }
+        .qa-block::after { content: 'CONFIDENTIAL'; position: absolute; top: -10px; right: 15px; background: var(--main-color); color: var(--bg-color); font-family: 'Orbitron', sans-serif; font-size: 0.7em; padding: 2px 8px; transform: rotate(3deg); opacity: 0.8; font-weight: bold; }
+        .question { font-size: 1.1em; font-weight: 500; color: var(--main-color); margin: 0 0 10px 0; }
+        .question::before { content: 'Q_'; margin-right: 5px; }
+        .answer { padding-left: 15px; border-left: 2px solid var(--border-color); }
+        .answer p, .answer ul { margin: 0 0 10px 0; }
+        .answer ul { list-style-type: none; padding-left: 0; }
+        .answer li { margin-bottom: 10px; }
+        details { margin-top: 10px; border: 1px dashed var(--border-color); border-radius: 4px; transition: all 0.3s ease; }
+        details[open] { border: 1px solid transparent; background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end)); padding: 1px; box-shadow: 0 0 10px var(--gradient-mid); }
+        summary { font-weight: 500; cursor: pointer; padding: 10px; list-style: none; position: relative; }
+        details[open] summary { background: rgba(0,0,0,0.7); color: #fff; }
+        summary::-webkit-details-marker { display: none; }
+        summary::before { content: '[+]'; margin-right: 8px; color: var(--main-color); font-family: monospace; }
+        details[open] summary::before { content: '[-]'; }
+        .details-content { padding: 15px; margin: 0; background: rgba(13, 13, 15, 0.9); color: var(--text-color); }
+        .details-content p { margin: 0; }
+        @media (max-width: 600px) { body { padding: 10px; } .container { padding: 15px; } .glitch-title { font-size: 1.8em; } .category-btn { font-size: 0.8em; padding: 6px 10px;} }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>캐릭터에 대해 알고 싶어!</h1>
-        <p class="subtitle">이곳에 캐릭터의 이름이나 소개를 적어주세요.</p>
+        <header class="header">
+            <h1 class="glitch-title">DATA LOG :: CHARACTER Q&A</h1>
+            <p class="subtitle">INPUT CHARACTER NAME_</p>
+        </header>
 
-        <!--
-            아래부터 Q&A 내용입니다.
-            <div class="qa-block"> ... </div> 이 부분을 복사해서 새로운 질문을 추가할 수 있습니다.
-        -->
+        <nav class="category-nav">
+            <button class="category-btn active" data-target="profile">👤 기본 프로필</button>
+            <button class="category-btn" data-target="relations">👨‍👩‍👧‍👦 관계</button>
+            <button class="category-btn" data-target="skills">🤸 취미/특기</button>
+            <button class="category-btn" data-target="food">🍽️ 식생활</button>
+            <button class="category-btn" data-target="life">☀️ 일상</button>
+            <button class="category-btn" data-target="tastes">❤️ 취향</button>
+            <button class="category-btn" data-target="vices">🍻 음주/흡연</button>
+            <button class="category-btn" data-target="misc">🤔 가상 상황</button>
+        </nav>
 
-        <!-- 예시 1: 단일 답변 + 단일 토글 -->
-        <div class="qa-block">
-            <h2 class="question">자캐의 가족관계는 어떻게 되나요?</h2>
-            <div class="answer">
-                <p>외동으로, 현재는 부모님과 떨어져 혼자 살고 있습니다.</p>
-            </div>
-            <details>
-                <summary>자세한 이야기</summary>
-                <div class="details-content">
-                    <p>부모님은 작은 시골 마을에서 농장을 운영하고 계십니다. 어릴 적부터 독립심이 강해 도시로 상경했으며, 지금도 한 달에 한 번은 부모님을 찾아뵙고 있습니다.</p>
+        <main>
+            <!-- 👤 기본 프로필 및 신체 정보 -->
+            <section id="profile" class="content-section active">
+                <div class="qa-block">
+                    <h2 class="question">이름의 뜻</h2>
+                    <div class="answer"><p>이곳에 답변을 입력하세요.</p></div>
+                    <details><summary>상세 정보</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
                 </div>
-            </details>
-        </div>
-
-        <!-- 예시 2: 단일 답변 + 여러 토글 -->
-        <div class="qa-block">
-            <h2 class="question">자캐의 취미는 무엇인가요?</h2>
-            <div class="answer">
-                <p>주된 취미는 오래된 흑백 영화 감상입니다.</p>
-            </div>
-            <details>
-                <summary>어떤 영화를 좋아하나요?</summary>
-                <div class="details-content">
-                    <p>주로 1940년대에서 50년대 사이에 제작된 필름 느와르 장르를 선호합니다. 특유의 어두운 분위기와 예측 불가능한 스토리를 즐깁니다.</p>
+                <div class="qa-block">
+                    <h2 class="question">신체 정보</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>건강 상태:</strong> 이곳에 답변을 입력하세요.<details><summary>상세 정보</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>체력:</strong> 이곳에 답변을 입력하세요.<details><summary>상세 정보</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>체온:</strong> 이곳에 답변을 입력하세요.</li>
+                        </ul>
+                    </div>
                 </div>
-            </details>
-            <details>
-                <summary>취미가 된 계기</summary>
-                <div class="details-content">
-                    <p>어릴 적 할아버지 댁에서 우연히 발견한 낡은 필름 영사기와 영화들을 접하게 된 것이 계기가 되었습니다. 그 이후로 고전 영화의 매력에 푹 빠지게 되었습니다.</p>
+                <div class="qa-block">
+                    <h2 class="question">기타 신체 특징</h2>
+                    <div class="answer"><p>캐릭터의 신체적 특징에 대한 종합적인 설명입니다.</p></div>
+                    <details><summary>손/발 크기</summary><div class="details-content"><p>이곳에 답변을 입력하세요. (ex. 손은 F9, 발은 270mm)</p></div></details>
+                    <details><summary>주로 쓰는 손</summary><div class="details-content"><p>이곳에 답변을 입력하세요. (ex. 오른손잡이)</p></div></details>
                 </div>
-            </details>
-        </div>
+                <div class="qa-block">
+                    <h2 class="question">체향 및 향수 사용 여부</h2>
+                    <div class="answer"><p>이곳에 답변을 입력하세요.</p></div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">MBTI</h2>
+                    <div class="answer"><p>이곳에 답변을 입력하세요.</p></div>
+                </div>
+            </section>
 
-        <!-- 예시 3: 여러 답변 + 각 답변별 토글 -->
-        <div class="qa-block">
-            <h2 class="question">자캐의 특기는 무엇인가요?</h2>
-            <div class="answer">
-                <ul>
-                    <li>
-                        <strong>요리:</strong> 특히 이탈리안 요리에 능숙합니다.
-                        <details>
-                            <summary>요리를 잘하게 된 이유</summary>
-                            <div class="details-content">
-                                <p>자취를 시작하면서 생활비를 아끼기 위해 직접 요리하기 시작했습니다. 요리책을 보고 따라 하던 것이 재미를 붙여 지금은 수준급의 실력을 갖게 되었습니다.</p>
-                            </div>
-                        </details>
-                    </li>
-                    <li>
-                        <strong>외국어:</strong> 영어와 프랑스어를 유창하게 구사합니다.
-                        <details>
-                            <summary>외국어를 배우게 된 계기</summary>
-                            <div class="details-content">
-                                <p>앞서 말한 취미인 고전 영화 감상을 위해 원어로 된 영화를 자막 없이 보고 싶다는 생각에 공부를 시작했습니다. 지금은 업무에도 적극적으로 활용하고 있습니다.</p>
-                            </div>
-                        </details>
-                    </li>
-                </ul>
-            </div>
-        </div>
+            <!-- 👨‍👩‍👧‍👦 가족 및 대인 관계 -->
+            <section id="relations" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">가족 관계 및 유대감</h2>
+                    <div class="answer"><p>이곳에 가족 구성원에 대한 답변을 입력하세요.</p></div>
+                    <details><summary>가족들과 사이는 좋은 편?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">선호하는/기피하는 인간상</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>좋아하는 사람(유형):</strong> 이곳에 답변을 입력하세요.<details><summary>구체적인 이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>싫어하는 사람(유형):</strong> 이곳에 답변을 입력하세요.<details><summary>구체적인 이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">결혼관</h2>
+                    <div class="answer"><p>결혼에 대해 어떻게 생각하나요?</p></div>
+                    <details><summary>결혼을 할 수 있을까?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+            </section>
 
-        <!-- 여기에 질문과 답변을 추가하세요 -->
+            <!-- 🤸 취미 및 특기 -->
+            <section id="skills" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">주요 특기 및 취미</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>특기:</strong> 이곳에 답변을 입력하세요.<details><summary>상세 설명</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>취미:</strong> 이곳에 답변을 입력하세요.<details><summary>상세 설명</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">운동 신경</h2>
+                    <div class="answer"><p>운동을 꾸준히 하는 편이며, 전반적으로 뛰어난 편입니다.</p></div>
+                    <details><summary>가장 잘하는 운동</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>가장 자신있는 스포츠</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                 <div class="qa-block">
+                    <h2 class="question">예술적 재능</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>악기:</strong> 악기를 잘 다루나요? <details><summary>가장 잘 다루는 악기는?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>노래:</strong> 노래를 잘 부르나요? <details><summary>가장 잘 부르는 노래는?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>춤:</strong> 춤을 잘 추나요? <details><summary>가장 잘 추는 춤은?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">기타 기술</h2>
+                    <div class="answer"><p>운전 실력, 요리 실력 등에 대한 답변을 입력하세요.</p></div>
+                    <details><summary>운전 실력</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>요리 실력 및 자신 있는 요리</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+            </section>
 
+            <!-- 🍽️ 식생활 및 음식 취향 -->
+            <section id="food" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">식사 습관</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>아침:</strong> 먹는다 / 안 먹는다. <details><summary>이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>점심:</strong> 먹는다 / 안 먹는다. <details><summary>이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>저녁:</strong> 먹는다 / 안 먹는다. <details><summary>이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">음식 및 음료 취향</h2>
+                    <div class="answer"><p>전반적인 음식 취향에 대한 설명입니다.</p></div>
+                    <details><summary>가장 좋아하는 음식/싫어하는 음식</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>가장 좋아하는 음료/자주 마시는 음료</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">간식 취향</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>선호하는 간식:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>여름 간식:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>겨울 간식:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>아이스크림 맛:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>붕어빵:</strong> 슈붕 vs 팥붕 vs 그 외 <details><summary>이유</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ☀️ 일상 및 생활 습관 -->
+            <section id="life" class="content-section">
+                 <div class="qa-block">
+                    <h2 class="question">습관</h2>
+                    <div class="answer"><p>캐릭터가 가진 다양한 습관에 대한 정보입니다.</p></div>
+                    <details><summary>사소한 습관</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>나쁜 버릇과 고칠 의지</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                 <div class="qa-block">
+                    <h2 class="question">하루 일과</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>기상 직후:</strong> 일어나자마자 하는 행동은? <details><summary>아침 루틴</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>휴식 시간:</strong> 쉬는 시간에는 무엇을 하나요?</li>
+                            <li><strong>귀가 중:</strong> 하교/퇴근하면서 하는 행동은?</li>
+                            <li><strong>휴일:</strong> 휴일에 주로 하는 행동은?</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">수면 습관</h2>
+                     <div class="answer"><p>수면과 관련된 정보입니다.</p></div>
+                    <details><summary>잠버릇</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>잠옷 스타일</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>자는 장소 (침대 or 바닥)</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                     <details><summary>잠들기 전 마지막 행동</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                 <div class="qa-block">
+                    <h2 class="question">생활 공간</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>방의 모습:</strong> 방에는 주로 무엇이 있나요?<details><summary>방 사진/묘사</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>정리 습관:</strong> 방 정리를 잘하는 편인가요?<details><summary>정리 빈도</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ❤️ 개인 선호 및 취향 -->
+            <section id="tastes" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">자연물에 대한 취향</h2>
+                     <div class="answer">
+                        <ul>
+                            <li><strong>식물:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>동물:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>계절:</strong> 이곳에 답변을 입력하세요.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">문화적 취향</h2>
+                    <div class="answer"><p>색상, 음악 등 문화적 요소에 대한 취향 정보입니다.</p></div>
+                    <details><summary>가장 좋아하는 색상</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>좋아하는 음악 장르/아티스트</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">패션 스타일</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>옷 입는 스타일:</strong> 옷을 잘 입는 편인가요?<details><summary>상세 설명</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details></li>
+                            <li><strong>자주 입는 옷:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>가장 잘 어울리는 옷:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>가장 좋아하는 옷:</strong> 이곳에 답변을 입력하세요.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">선호하는 환경</h2>
+                    <div class="answer"><p>실내 vs 야외? 이곳에 답변을 입력하세요.</p></div>
+                </div>
+            </section>
+
+            <!-- 🍻 음주 및 흡연 -->
+            <section id="vices" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">음주 및 흡연 여부</h2>
+                     <div class="answer"><p>술/담배를 하는 편인가요? 이곳에 답변을 입력하세요.</p></div>
+                    <details><summary>주량</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                    <details><summary>술버릇</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+            </section>
+
+            <!-- 🤔 가상 상황 -->
+            <section id="misc" class="content-section">
+                <div class="qa-block">
+                    <h2 class="question">일상 속 가상 상황</h2>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>감기에 걸린다면?:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>식물을 키운다면?:</strong> 이곳에 답변을 입력하세요.</li>
+                            <li><strong>동물을 키운다면?:</strong> 이곳에 답변을 입력하세요.</li>
+                             <li><strong>결혼식장에 간다면?:</strong> 이곳에 답변을 입력하세요.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="qa-block">
+                    <h2 class="question">수면 중 가상 상황</h2>
+                    <div class="answer"><p>수면과 관련된 가상 상황입니다.</p></div>
+                    <details><summary>자주 꾸는 꿈</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                     <details><summary>악몽을 꾼다면?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+                <div class="qa-block">
+                    <h2 class="question">벌레와의 조우</h2>
+                    <div class="answer"><p>벌레를 잘 잡는 편인가요?</p></div>
+                    <details><summary>만약 바선생과 마주친다면?</summary><div class="details-content"><p>이곳에 답변을 입력하세요.</p></div></details>
+                </div>
+            </section>
+        </main>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) { section.classList.add('active'); }
+                        else { section.classList.remove('active'); }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
