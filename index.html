@@ -45,48 +45,10 @@
             opacity: 0.03; z-index: -1; pointer-events: none; animation: noise 0.2s linear infinite;
         }
 
-        /* --- 이모티콘 스티커 배경 스타일 --- */
-        .emoji-background {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; z-index: -1; pointer-events: none;
-        }
-        .emoji-sticker {
-            position: absolute;
-            font-size: 2rem; /* 이모티콘 크기 */
-            opacity: 0.2; /* 이모티콘 투명도 */
-            animation: fadeIn 1.5s ease-out;
-        }
-
         .container {
             max-width: 800px; margin: 0 auto; border: 1px solid var(--border-color);
             background: rgba(13, 13, 15, 0.8); backdrop-filter: blur(5px);
             padding: 20px; border-radius: 8px; box-shadow: 0 0 20px var(--glow-color);
-            position: relative; z-index: 1;
-        }
-
-        /* --- BGM 버튼 스타일 --- */
-        #bgm-toggle-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--main-color);
-            color: var(--bg-color);
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px var(--glow-color);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            z-index: 999;
-        }
-        #bgm-toggle-btn:hover {
-            transform: scale(1.1);
         }
 
         .header { text-align: center; margin-bottom: 30px; position: relative; }
@@ -104,6 +66,31 @@
             font-size: 0.9em; border-radius: 4px;
         }
         .category-btn:hover, .category-btn.active { background-color: var(--main-color); color: var(--bg-color); box-shadow: 0 0 15px var(--glow-color); }
+
+        /* <!-- BGM 버튼 스타일 추가 --> */
+        .bgm-control {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        #bgm-toggle-btn {
+            font-family: 'Orbitron', sans-serif;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--main-color);
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+        #bgm-toggle-btn:hover, #bgm-toggle-btn.active {
+            background-color: var(--main-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        /* <!-- BGM 버튼 스타일 끝 --> */
 
         .content-section { display: none; animation: fadeIn 0.5s ease-out; }
         .content-section.active { display: block; }
@@ -134,22 +121,24 @@
         @media (max-width: 600px) {
             body { padding: 10px; } .container { padding: 15px; } .glitch-title { font-size: 1.8em; }
             .category-btn { font-size: 0.8em; padding: 6px 10px;}
+            /* <!-- BGM 버튼 위치 조정 (모바일) --> */
+            .bgm-control { top: 15px; right: 15px; }
+            #bgm-toggle-btn { font-size: 0.8em; padding: 6px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 이모티콘 배경이 담길 컨테이너 -->
-    <div class="emoji-background"></div>
-
-    <!-- BGM 오디오 파일 (숨김 처리) 및 컨트롤 버튼 -->
-    <audio id="bgm" loop>
-        <!-- 👇 여기에 음악 파일 주소를 넣으세요. -->
-        <source src="content://media/external/downloads/1000164145" type="audio/mpeg">
-        브라우저가 오디오 태그를 지원하지 않습니다.
+    <!-- BGM 오디오 파일 추가 -->
+    <audio id="bgm-audio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2024/05/17/audio_f574a72d7f.mp3?filename=lazy-day-stylish-futuristic-chill-239287.mp3" type="audio/mpeg">
+        브라우저가 오디오를 지원하지 않습니다.
     </audio>
-    <button id="bgm-toggle-btn">🔇</button>
 
+    <!-- BGM 제어 버튼 추가 -->
+    <div class="bgm-control">
+        <button id="bgm-toggle-btn">SOUND ON</button>
+    </div>
 
     <div class="container">
         <header class="header">
@@ -522,7 +511,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- 카테고리 탭 기능 ---
+            // 기존 카테고리 네비게이션 스크립트
             const categoryButtons = document.querySelectorAll('.category-btn');
             const contentSections = document.querySelectorAll('.content-section');
             categoryButtons.forEach(button => {
@@ -537,39 +526,22 @@
                 });
             });
 
-            // --- 이모티콘 배경 생성 기능 ---
-            const emojiContainer = document.querySelector('.emoji-background');
-            const emojis = ['🥀', '🎼', '🌧️', '🩶', '🕊️', '⏳']; // 캐릭터와 어울리는 이모티콘
-            const stickerCount = 20; // 생성할 스티커 개수
-
-            for (let i = 0; i < stickerCount; i++) {
-                const sticker = document.createElement('span');
-                sticker.classList.add('emoji-sticker');
-                sticker.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-
-                sticker.style.top = `${Math.random() * 100}vh`;
-                sticker.style.left = `${Math.random() * 100}vw`;
-                sticker.style.fontSize = `${Math.random() * 1.5 + 1}rem`; // 1rem ~ 2.5rem
-                sticker.style.transform = `rotate(${Math.random() * 60 - 30}deg)`; // -30도 ~ 30도
-
-                emojiContainer.appendChild(sticker);
-            }
-
-            // --- BGM 제어 기능 ---
-            const bgm = document.getElementById('bgm');
+            // <!-- BGM 제어 스크립트 추가 -->
+            const bgmAudio = document.getElementById('bgm-audio');
             const bgmBtn = document.getElementById('bgm-toggle-btn');
 
-            bgm.volume = 0.3; // 기본 볼륨 설정 (0 ~ 1)
-
-            bgmBtn.addEventListener('click', function() {
-                if (bgm.paused) {
-                    bgm.play();
-                    bgmBtn.innerHTML = '🎵';
+            bgmBtn.addEventListener('click', () => {
+                if (bgmAudio.paused) {
+                    bgmAudio.play();
+                    bgmBtn.textContent = 'SOUND OFF';
+                    bgmBtn.classList.add('active');
                 } else {
-                    bgm.pause();
-                    bgmBtn.innerHTML = '🔇';
+                    bgmAudio.pause();
+                    bgmBtn.textContent = 'SOUND ON';
+                    bgmBtn.classList.remove('active');
                 }
             });
+            // <!-- BGM 스크립트 끝 -->
         });
     </script>
 
